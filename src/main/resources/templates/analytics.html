@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Analytics — Room Booking</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f3f5fb; margin: 0; padding: 18px; }
+.nav { display: flex; gap: 8px; justify-content: center; background: #5b6df6; margin-bottom: 18px; padding: 10px; border-radius: 6px; }
+.nav button { padding: 8px 14px; width: 150px; cursor: pointer; background: #5b6df6; color: #fff; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s; }
+.nav button:hover { background: #4a5ad6; }
+.container { max-width: 520px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 6px 20px rgba(50,50,93,0.07); }
+h2 { text-align: center; margin-top: 0; }
+p { font-weight: 600; margin-top: 6px; }
+#availableRooms div { margin-left: 10px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+<button onclick="location.href='/Addroom'">Add Room</button>
+<button onclick="location.href='/booking'">Booking</button>
+<button onclick="location.href='/booking/cancel'">Cancellation</button>
+<button onclick="location.href='/analytics'">Analytics</button>
+</div>
+
+<div class="container">
+<h2>Analytics</h2>
+<p>Total Rooms: <span th:text="${totalRooms}">0</span></p>
+<p>Total Bookings: <span th:text="${totalBookings}">0</span></p>
+<p>Total Revenue: ₹<span th:text="${totalRevenue}">0</span></p>
+<h3>Available Rooms Now:</h3>
+<div id="availableRooms">
+    <div th:each="room : ${availableRooms}" 
+         th:text="${room.roomNo + ' - ₹' + room.perHour + '/hr (Cap: ' + room.capacity + ')'}">
+    </div>
+    <div th:if="${#lists.isEmpty(availableRooms)}">None</div>
+</div>
+</div>
+
+</body>
+</html>
